@@ -1,0 +1,430 @@
+第一
+学linux的第一步：背下和工作相关的目录，如果记不住，完全没办法往下学
+linux是个文件操作系统，他把所有的东西都当文件
+
+重要目录：9大目录
+/:根目录（我的电脑）
+	/dev:device 设备目录
+	/etc:配置文件，你上班后，经常听到要修改配置
+	/home:所有的普通用户都在home下
+	/root:超级管理员所在的目录
+	/mnt:mount挂载目录
+	/tmp:temp临时文件目录，我们上班后做实验一般在这个目录下做
+	/usr:软件默认安装的目录，他就相当于c:\pro file,如果我们上班后安装某软件不指定目录，默认就在这个下
+	/var:软件的工作目录
+		/var/迅雷下载
+		/var/360download
+
+
+
+
+
+
+第二
+最基本的命令：
+1、pwd：查看我当前所在的位置
+2、ls：展示目录中有哪些内容
+	ls -l、ls -a
+	有个问题产生，还有哪些参数呢？？？linux是一个男人的操作系统，不懂问男人
+	man 命令
+		q来退出（quit）
+  	ll更常用，他是ls -l的简写（别名） alias
+3、取别名：alias cai='ls -l' 
+     撤销：unalias cai
+4、切换目录：cd，尤其你必须掌握相对路径和绝对路径
+	cd 目录
+	玩这个，要问自己，我在哪？我想去哪？
+	我在哪？pwd
+	我想去哪？如果想去的位置就是我下面的目录，就直接 cd 目录名
+		                不在我下面，就cd /敲完整目录路径
+	[root@localhost tmp]#
+		/tmp              /tmp/caichang/baobao
+			    #cd caichang/baobao(就可以了，相对路径)
+                            #cd /tmp/caichang/baobao(也可以，绝对路径)
+5、clear：清屏
+
+
+
+
+
+
+
+
+第三
+
+linux是个文件系统，我们要学习文件、文件夹的操作
+做实验都在/tmp,因此先执行：cd /tmp,来到/tmp目录
+为了能够很好的记住这些命令，你做的实验最好结合你的理解，让他变得有趣
+
+
+新建、删除、重命名、剪切、复制、查找
+
+新建：
+	文件夹 mkdir make directory
+		mkdir cai
+		mkdir cai chang bao zi
+		mkdir -p bao/zi/fengjie/hehe
+	文件   touch
+		touch cc
+		touch cc cc2 cc3
+
+删除：
+	文件夹 rmdir  remove directory
+		rmdir cai
+		rmdir cai chang bao
+		【注意】很遗憾，rmdir只能删除空文件夹，这个命令用得特别少
+	文件    rm -rf 文件/文件夹
+		【注意】请看清楚文件或文件夹的名称，否则只能从删库到跑路 :)
+
+
+重命名、剪切：
+	文件/文件夹 mv  move
+	如果是同层，表示重命名，如果是不同层，表示剪切
+	mv 原目录 现目录
+		 mv caichang fengjie（同层） 重命名
+		 mv fengjie/ /var/www/html（不同层） 剪切
+
+查看历史命令：history
+
+
+复制：
+	文件/文件夹 cp
+	如果是文件夹，要带-r 参数
+	cp [-r] 原目录 现目录
+		
+查找：
+	文件/文件夹 find
+	find 目录 -name '文件'
+	【注意】工作中，我们最常见的是：find / -name '*文件名*'
+	        linux的find比windows强大太多太多，他有一堆的技巧，可以百度找出你喜欢的
+
+【注意】
+	只要你写对路径就能做你要的一切且不局限于当前位置（好处：不用来回切路径）
+
+
+
+为了做这个实验，我选取了一个文件：cp /etc/httpd/conf/httpd.conf /tmp
+查看文件的内容：
+	静态、动态
+		静态：cat、more、less、heed、tac
+			cat：小点的文件，最好是一屏就能展示完
+			more：慢慢看，不能向上看  q：退出
+		 	less：上下随便看
+			下面的不常用：
+			head -n 10 httpd.conf
+		动态：
+			tail -f 动态文件
+
+
+
+
+
+
+
+
+第四
+因为你上班后，不会是超管，所以其实你不用特别关注用户这块
+【预备】
+[root@localhost ~]#    整个前缀我们称为shell，linux默认的是bash shell，unix是csh： cqdb%
+产生出一个问题，什么是shell？ 
+	shell是用户和内核打交道的中间层
+
+root：你当前所属用户
+	切换用户：su
+		超管----普通用户：su 用户名
+		普通用户----超管：su -，要输入密码
+localhost：主机名
+~：当前用户的工作路径
+	root：/root
+	普通用户：/home/用户名
+#：超管权限   $：普通权限
+
+
+
+1、针对用户和用户组的添加、删除等行为可以优先级比较低的学习
+	1、添加用户  adduser/useradd 用户名
+	2、添加密码  passwd 用户名  这里特别提醒，不能直接输passwd
+	【提醒】
+		添加用户后，就会自动的添加一个和用户名一模一样的用户组
+
+	3、删除用户  userdel 用户名
+
+	4、用户组：
+		添加：groupadd 用户组名
+		删除：groupdel 用户组名
+	5、查看用户文件和用户组文件：
+		more /etc/passwd     more /etc/group
+	6、更改所属用户和所属用户组
+		更改所属用户：chown 用户名 文件或文件夹       chown：change owner
+		更改所属用户组：chgrp 用户组名 文件或文件夹   chgrp  change group
+
+	7、权限（超级重点，必须掌握）
+		1、看
+		2、读
+		3、赋  chmod
+			1、chmod 777 文件/文件夹   (自己玩这个就足够了)
+			2、chmod +x 文件/文件夹   （你以后上班的文档中或你的同事有可能是这样出奥座）
+			3、chmod u+x 文件/文件件  （你以后上班的文档中或你的同事有可能是这样出奥座）
+			
+			如下是不常见但你也要理解的：
+				1、chmod u-x 文件或文件夹
+				2、chmod g+u 文件或文件夹
+				3、chmod o+rw 文件或文件夹
+
+			能+就能-，能u就能go，能r就能wx
+				chmod o-w、chmod g+x 
+
+
+
+
+
+第五
+windows:rar、zip   windows是边打包边压缩
+	1、linux是不支持rar格式
+	2、zip：支持
+		压缩：zip -r 名 文件/文件夹
+		解压缩：unzip 名    （这个多一点，同事给我的有可能是zip包，我要解压开后才能看里面的内容）
+ 
+linux：tar 打包
+	1、压缩：
+		tar cvf 名 文件/文件夹
+	2、解压缩：
+		tar xvf 名
+	3、查看包里内容
+		tar -tf 压缩包名
+	4、追加东西到压缩包中
+		tar -rf 名 文件/文件夹
+	5、删除压缩包中的内容
+		tar --delete -f 名 文件/文件夹
+	gzip 压缩
+	1、压缩（大前提：已经是个tar包）
+		gzip 包.tar
+	2、解压缩 (解压完成后是个.tar包)
+		gunzip 包.tar.gz
+
+	【疑问】我不想分2步做，能不能实现边打包边压缩
+
+	1、压缩：
+		tar zcvf 名.tar.gz 文件/文件夹
+	2、解压缩：
+		tar zxvf 名.tar.gz
+
+【特别提醒】
+	linux是不区分后缀的，但为了方便使用，写一个后缀而已
+
+
+
+
+第六
+
+进程管理是必会的内容：查、杀
+1、ps
+	ps -ef（工作常用）或ps aux（运维喜欢用）
+2、top（查实时进程）
+	他有点像windows的任务管理器
+	他退出用ctrl+c（强制退出）
+3、工作中用得更多的是下面这种
+	场景：我安装了一个软件（mysql），启动了吗？？不知道
+              我的同事或老大要我把某进程或某程序杀死，那我得知道是那个进程控制着这个程序？
+		我需要知道如何查单个进程
+			ps -ef | grep java(进程名)   				
+			【提醒】 一个叫没有
+
+4、杀进程：
+	kill -9 pid(第二列)
+		service httpd start  或  who
+	pkill或killall pname（你可以问同事知道进程名）
+
+
+
+
+第七
+
+1、查ip：ifconfig，一般服务器都有很多个网卡，会出现如：eth0，eth1，eth2。。。等。至于你要用哪张网卡随你喜欢
+2、开启或关闭或重启某服务：service 服务名 状态（start、stop、restart、status）
+3、查cpu：more /proc/cpuinfo
+4、查内存：more /proc/meminfo  内存（memory）
+5、查硬盘占有：df -h   它往往配合着 du -sh * （当前目录中各文件/文件夹所占用的值）来使用
+6、查看历史命令：history
+	你上班后，搭到中途，有点没搭上，问同事，你的同事过来坐下，一顿敲，然后告诉你：ok了。
+	你的内心： :(  ，你想不想知道他做什么，同时还想记录好他的命令形成自己的文档
+	于是你history一下
+		看到，想执行：!编号（第一列）
+		记录成一个文档：history >  文档名
+7、>、>> （重定向）必会，还要学会windows和linux之间文件来回拖动
+	命令 > 文件名：把命令的输出结果输入到后面的文件中，如果这个文件不存在，就会自动的创建一个，如果存在，就会覆盖
+	命令 >>文件名：把命令的输出结果追加到文件中
+	你是用>还是>>是由你的工作场景决定
+	【问题】我现在存储的文件是在linux上，单我想把他放在windows上，于是要学习如果互传文件
+		在门道，我们采用的是ssh这个软件
+		工作中，不同的同事有可能用其他软件：winscp、xshell、ftp
+
+
+
+
+
+
+tomcat是什么？
+	web服务器，中间件
+
+企业为什么开发java的web项目时喜欢用tomcat？
+	小巧，性能好，免费，开源，和各种其他项目整个很方便
+
+
+1、安装
+	1、上传上对应的tomcat的软件包
+	2、tar zxvf apache-tomcat....tar.gz
+	3、cp -r apache-tomcat.... /usr/java
+	4、cd /usr/java/apache-tomcat.../bin
+	5、./startup.sh
+	6、service iptables stop 关闭防火墙  service iptables start 开始起防火墙
+
+2、测试
+	打开chrome，输入http://linux的ip:8080
+
+
+3、学会看tomcat的日志
+	1、重新打开一个putty，进入tomcat的logs目录:cd /usr/java/apache-tomcat.../logs
+	2、tail -f catalina.out，即可打开日志
+	3、在另外一个putty中，不断的进行开或关tomcat，监控日志文件，会发现不断的在实时打印日志内容
+
+4、学习tomcat的重要目录
+	bin：开关tomcat的脚本目录
+	logs：日志目录
+	conf：配置文件目录  server.xml中就有8080 （67行附近）
+	webapps：应用程序存放目录
+
+rpm:rpm（英文全拼：redhat package manager） 原本是 Red Hat Linux 发行版专门用来管理 Linux 各项套件的程序，由于它遵循 GPL 规则且功能强大方便，因而广受欢迎。逐渐受到其他发行版的采用。RPM 套件管理方式的出现，让 Linux 易于安装，升级，间接提升了 Linux 的适用度。
+
+
+
+
+
+
+
+Red Hat Linux 发行版:
+	linux是内核开源，因为有这个内核，全世界在这个内核上不断的进行包装，其中red hat
+	cenos因为是redhat的一个社区版，因此沿用了redhat的包管理规则，也就是采用rpm来管理
+	注意：全世界的linux发行版是否都遵循rpm包管理？ no
+
+GPL：通用公共许可证
+	注意理解他的含义！
+
+逐渐受到其他发行版的采用：centos、fedora、....
+
+rpm：可以最最简单的理解成是windows上的exe程序（简单理解）
+
+
+1、学习rpm的安装
+	1、jdk=jvm+jre
+		Hello.java-----Hello.class 编译 jvm
+		运行Hello.class            运行 jre
+	2、命令
+		rpm -ivh 包名
+	3、我们在装mysql时，发现rpm包有一个非常恶心的事件：包依赖
+		包依赖：先得安装上A才能安装B，不能直接安装B，会提示有error，提示为：failed dependencies
+
+
+2、其他相关的rpm操作
+	1、显示包的相关信息：rpm -qi xxx.rpm
+	2、显示安装后的行为：rpm -ql 包
+	3、卸载：rpm -e xxx
+	4、查看是否安装了某个包：rpm -qa | grep mysql
+
+
+
+
+
+
+
+
+
+
+yum是什么？
+Yum（全称为 Yellow dog Updater, Modified）是一个在Fedora和RedHat以及CentOS中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。
+
+玩他最终目的？
+	解决rpm包依赖关系
+
+大前提？
+	需要网络，需要联网
+
+指定服务器？
+	centos官方、阿里云、163、清华大学
+
+1、安装
+	yum install php
+	yum -y install php/jave/qq/wei
+	-y:所有的问题都输入yes
+	总结：你上班后，只需要 yum -y install 你要的软件名
+
+2、注意事项
+	1、要联网
+	2、有可能要切换源（管网源太慢）
+		切换到国内源，比较好的是阿里云
+		要学习如何切换源（看文档）
+
+3、最大的不足：源上只有某版本，如果要其他版本又要切换源
+
+
+
+
+
+
+源码安装：
+1、下载（wget）到对应的.tar.gz包
+2、解压 tar zxvf xxx.tar.gz
+3、cd xxxx
+4、./configure
+	这个./configure后面可以跟很多的参数，如：安装路径，日志路径等。也就是说你可以完全自定义很多东西
+5、make  编译
+	编译需要各种编译器的支持，因此会经历一个痛苦，但这个痛苦过了就其他全部不用管了
+6、make install 安装
+
+
+案例：nginx
+	周末完全对nginx的理解
+		代理、正向代理、反向代理
+		微服务架构（spring could）
+		负载均衡、动静分离
+
+安装步骤：
+	1、cd /usr/local
+	2、mkdir nginx
+	3、wget https://nginx.org/download/nginx-1.9.9.tar.gz
+		wget 是一个从网络上自动下载文件的自由工具
+	4、tar zxvf nginx-1.9.9.tar.gz
+	5、cd nginx-1.9.9
+	6、./configure --prefix=/usr/local/nginx/ --with-http_ssl_module
+		1、生成Makefile文件
+		2、./configure --help可以查看帮助
+	7、make
+		1、各种no，编译不通过
+		2、yum -y install gcc gcc-c++ autoconf automake
+		3、yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel
+		4、make，其实还不通过
+		5、要删除Makefile文件
+		6、重新./configure操作，然后再make
+	8、make install
+        9 cd /usr/local/nginx/sbin
+       10 ./nginx
+
+测试：
+	1、关闭防火墙：service iptables stop
+	2、打开浏览器,http://linux的ip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

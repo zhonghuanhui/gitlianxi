@@ -1,0 +1,36 @@
+mkdir mkdir mkdir mkdir mkdir mkdir mkfir mkdir mkdir mkdir mkdir mkdir mkdir mkdir mkdir
+
+rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm rm
+
+rm -rf rm -rf rm -rf rm -rf  rm -rf rm -rf rm -rf rm -rf rm -rf rm -rf rm -rf rm -rf rm -rf 
+
+mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv mv 
+
+cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp cp
+
+clear clear clear clear clear clear clear clear clear clear clear clear clear clear
+
+touch touch touch touch touch touch touch touch touch touch touch touch touch touch 
+
+find -name find -name find -name find -name 
+find -name find -name find -name find -name 
+
+find -name '*yi*' find -name '*yi*' find -name '*yi*' find -name '*yi*' fins -name '*yi*'
+
+cp -r cp -r cp -r cp -r cp -r cp -r cp -r cp -r cp -r cp -r cp -r cp -r cp -r cp -r cp -r
+
+more more more more more more more more more more more more more more more more more more
+
+tail -f tail -f tail -f tail -f tail -f tail -f tail -f tail -f tail -f tail -f tail -f
+
+su su su su su su su su su su su su su su su su su su su su su su su su su su su su su su
+
+su - su - su - su - su - su - su - su - su - su - su - su - su - su - su - su - su- su-
+
+adduser adduser adduser adduser adduser adduser adduser adduser adduser adduser
+
+passwd passwd passwd passwd passwd passwd passwd passwd passwd passwd passwd passwd
+ 
+userdel userdel userdel userdel userdel uesrdel userdel userdel userdel uesrdel 
+
+groupadd groupadd
